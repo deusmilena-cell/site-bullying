@@ -65,3 +65,114 @@
   <script src="js/main.js"></script>
 </body>
 </html>
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meu Site Personalizado</title>
+  <style>
+    /* Variáveis de cores (Roxo e Lilás) */
+    :root {
+      --roxo-escuro: #4A154B;
+      --roxo-principal: #6B2D5C;
+      --lilas-claro: #E8D7F1;
+      --lilas-medio: #D3B7D8;
+      --texto-escuro: #2D112C;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--lilas-claro);
+      color: var(--texto-escuro);
+    }
+
+    /* Menu de Navegação Horizontal no Topo */
+    .top-nav {
+      background-color: var(--roxo-escuro);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+    }
+
+    .logo {
+      color: #ffffff;
+      font-weight: bold;
+      font-size: 1.5rem;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 10px; /* Separação entre as abas */
+    }
+
+    /* Botões Interativos Quadrados */
+    .nav-btn, .action-btn {
+      background-color: var(--roxo-principal);
+      color: white;
+      text-decoration: none;
+      padding: 10px 20px;
+      border: 2px solid transparent;
+      border-radius: 0px; /* Formato 100% quadrado */
+      cursor: pointer;
+      font-weight: bold;
+      display: inline-block;
+      transition: all 0.2s ease;
+    }
+
+    /* Efeito Hover (Interatividade) */
+    .nav-btn:hover, .action-btn:hover {
+      background-color: var(--lilas-medio);
+      color: var(--roxo-escuro);
+      border-color: var(--roxo-escuro);
+    }
+
+    /* Conteúdo Principal */
+    .content {
+      padding: 50px 20px;
+      text-align: center;
+    }
+
+    .content h1 {
+      margin-bottom: 15px;
+      color: var(--roxo-escuro);
+    }
+
+    .content p {
+      margin-bottom: 25px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Menu de abas na parte superior -->
+  <header class="top-nav">
+    <div class="logo">MeuSite</div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="#" class="nav-btn">Início</a></li>
+        <li><a href="#" class="nav-btn">Sobre</a></li>
+        <li><a href="#" class="nav-btn">Serviços</a></li>
+        <li><a href="#" class="nav-btn">Contato</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Conteúdo -->
+  <main class="content">
+    <h1>Bem-vindo ao Site!</h1>
+    <p>Layout estilizado com tons de roxo, lilás e botões quadrados.</p>
+    <button class="action-btn">Ação Principal</button>
+  </main>
+
+</body>
+</html>
