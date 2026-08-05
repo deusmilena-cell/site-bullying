@@ -65,3 +65,231 @@
   <script src="js/main.js"></script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal de Escuta - Apoio ao Estudante</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <h1><i class="fas fa-hand-holding-heart"></i> Conexão & Respeito</h1>
+      <nav>
+        <ul>
+          <li><a href="index.html">Início</a></li>
+          <li><a href="escuta.html" class="active">Portal de Escuta</a></li>
+          <li><a href="quiz.html">Quiz Interativo</a></li>
+          <li><a href="referencias.html">Referências</a></li>
+        </ul>
+      </nav>
+      <div class="accessibility-controls">
+        <button id="theme-toggle"><i class="fas fa-moon"></i></button>
+        <button id="increase-font">A+</button>
+        <button id="decrease-font">A-</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="escuta-intro">
+      <h2>Espaço de Acolhimento e Desabafo</h2>
+      <p>Use o formulário abaixo para registrar seus pensamentos ou relatos. <strong>Atenção:</strong> Este formulário é uma <em>simulação interativa</em> e nenhuma informação pessoal ou relato será salvo em banco de dados.</p>
+    </section>
+
+    <div class="grid-escuta">
+      <section class="form-section">
+        <form id="desabafo-form">
+          <div class="form-group">
+            <label for="nome">Nome ou Apelido (Opcional):</label>
+            <input type="text" id="nome" placeholder="Como prefere ser chamado?">
+          </div>
+          <div class="form-group">
+            <label for="relato">Escreva aqui seu desabafo:</label>
+            <textarea id="relato" rows="6" required placeholder="Sinta-se à vontade para expressar como está se sentindo..."></textarea>
+          </div>
+          <button type="submit" class="btn-primary">Enviar Desabafo</button>
+        </form>
+
+        <div id="feedback-mensagem" class="feedback-box hidden"></div>
+      </section>
+
+      <aside class="orientacoes">
+        <h3><i class="fas fa-life-ring"></i> Precisa de ajuda urgente?</h3>
+        <p>Lembre-se de que você não precisa carregar tudo sozinho. Sempre procure orientação de pessoas preparadas para ajudar:</p>
+        <ul>
+          <li><i class="fas fa-chalkboard-teacher"></i> Professores e pedagogos de sua escola</li>
+          <li><i class="fas fa-school"></i> Direção ou coordenação escolar</li>
+          <li><i class="fas fa-home"></i> Pais, responsáveis ou familiares próximos</li>
+          <li><i class="fas fa-phone-alt"></i> <strong>CVV (Centro de Valorização da Vida):</strong> Ligue 188 (Gratuito e confidencial)</li>
+          <li><i class="fas fa-shield-alt"></i> <strong>Disque 100:</strong> Violações de Direitos Humanos</li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Portal de Apoio ao Estudante.</p>
+    <button id="back-to-top" title="Voltar ao Topo"><i class="fas fa-arrow-up"></i></button>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz Interativo - Apoio ao Estudante</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <h1><i class="fas fa-hand-holding-heart"></i> Conexão & Respeito</h1>
+      <nav>
+        <ul>
+          <li><a href="index.html">Início</a></li>
+          <li><a href="escuta.html">Portal de Escuta</a></li>
+          <li><a href="quiz.html" class="active">Quiz Interativo</a></li>
+          <li><a href="referencias.html">Referências</a></li>
+        </ul>
+      </nav>
+      <div class="accessibility-controls">
+        <button id="theme-toggle"><i class="fas fa-moon"></i></button>
+        <button id="increase-font">A+</button>
+        <button id="decrease-font">A-</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <h2>Quiz: Teste seus conhecimentos sobre Bullying e Respeito</h2>
+    
+    <div id="quiz-container" class="quiz-card">
+      <form id="quiz-form">
+        <!-- Pergunta 1 -->
+        <div class="question">
+          <h3>1. O que caracteriza uma prática como Bullying?</h3>
+          <label><input type="radio" name="q1" value="a"> Uma brincadeira pontual onde todos riram juntos.</label><br>
+          <label><input type="radio" name="q1" value="b"> Agressões físicas ou verbais repetitivas e intencionais sem motivação aparente.</label><br>
+          <label><input type="radio" name="q1" value="c"> Uma discussão isolada entre dois amigos sobre um jogo.</label>
+        </div>
+
+        <!-- Pergunta 2 -->
+        <div class="question">
+          <h3>2. Como você deve agir ao presenciar um colega sendo ridicularizado na escola?</h3>
+          <label><input type="radio" name="q2" value="a"> Filmar a situação e publicar nas redes sociais.</label><br>
+          <label><input type="radio" name="q2" value="b"> Ignorar e se juntar aos colegas para dar risada.</label><br>
+          <label><input type="radio" name="q2" value="c"> Não incentivar, oferecer apoio à vítima e avisar um adulto da escola.</label>
+        </div>
+
+        <!-- Pergunta 3 -->
+        <div class="question">
+          <h3>3. Espalhar boatos virtuais ou criar perfis falsos para ofender alguém é considerado:</h3>
+          <label><input type="radio" name="q3" value="a"> Cyberbullying, uma forma grave de violência virtual.</label><br>
+          <label><input type="radio" name="q3" value="b"> Apenas uma piada sem consequências reais.</label><br>
+          <label><input type="radio" name="q3" value="c"> Liberdade de expressão na internet.</label>
+        </div>
+
+        <!-- Pergunta 4 -->
+        <div class="question">
+          <h3>4. Qual das atitudes abaixo demonstra respeito à diversidade na escola?</h3>
+          <label><input type="radio" name="q4" value="a"> Aceitar e acolher os colegas independentemente das suas diferenças.</label><br>
+          <label><input type="radio" name="q4" value="b"> Excluir quem pensa ou se veste de forma diferente de você.</label><br>
+          <label><input type="radio" name="q4" value="c"> Fazer apelidos maldosos sobre o modo de falar do colega.</label>
+        </div>
+
+        <!-- Pergunta 5 -->
+        <div class="question">
+          <h3>5. Se você for vítima de bullying, qual é a melhor atitude a tomar?</h3>
+          <label><input type="radio" name="q5" value="a"> Guardar o segredo para não arrumar mais problemas.</label><br>
+          <label><input type="radio" name="q5" value="b"> Tentar revidar a agressão com violência física.</label><br>
+          <label><input type="radio" name="q5" value="c"> Buscar ajuda imediata com um professor, responsável ou profissional da escola.</label>
+        </div>
+
+        <button type="button" id="submit-quiz" class="btn-primary">Finalizar Quiz</button>
+      </form>
+
+      <div id="quiz-result" class="result-box hidden"></div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Portal de Apoio ao Estudante.</p>
+    <button id="back-to-top" title="Voltar ao Topo"><i class="fas fa-arrow-up"></i></button>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Referências - Apoio ao Estudante</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <h1><i class="fas fa-hand-holding-heart"></i> Conexão & Respeito</h1>
+      <nav>
+        <ul>
+          <li><a href="index.html">Início</a></li>
+          <li><a href="escuta.html">Portal de Escuta</a></li>
+          <li><a href="quiz.html">Quiz Interativo</a></li>
+          <li><a href="referencias.html" class="active">Referências</a></li>
+        </ul>
+      </nav>
+      <div class="accessibility-controls">
+        <button id="theme-toggle"><i class="fas fa-moon"></i></button>
+        <button id="increase-font">A+</button>
+        <button id="decrease-font">A-</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <h2>Fontes Consultadas e Materiais Educativos</h2>
+    <p>Para a construção do conteúdo deste portal, foram utilizadas fontes confiáveis e oficiais sobre proteção e acolhimento juvenil:</p>
+
+    <ul class="ref-list">
+      <li>
+        <i class="fas fa-link"></i> 
+        <strong>Ministério da Educação (MEC):</strong>
+        <a href="https://www.gov.br/mec" target="_blank" rel="noopener noreferrer">Ações e orientações sobre clima escolar e prevenção ao bullying.</a>
+      </li>
+      <li>
+        <i class="fas fa-link"></i> 
+        <strong>UNICEF Brasil:</strong>
+        <a href="https://www.unicef.org/brazil/" target="_blank" rel="noopener noreferrer">Guias de prevenção à violência nas escolas e proteção à infância e adolescência.</a>
+      </li>
+      <li>
+        <i class="fas fa-link"></i> 
+        <strong>SaferNet Brasil:</strong>
+        <a href="https://new.safernet.org.br/" target="_blank" rel="noopener noreferrer">Orientações sobre cidadania digital e combate ao cyberbullying.</a>
+      </li>
+      <li>
+        <i class="fas fa-link"></i> 
+        <strong>Lei nº 13.185/2015:</strong>
+        <a href="http://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13185.htm" target="_blank" rel="noopener noreferrer">Institui o Programa de Combate à Intimidação Sistemática (Bullying) no Brasil.</a>
+      </li>
+    </ul>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Portal de Apoio ao Estudante.</p>
+    <button id="back-to-top" title="Voltar ao Topo"><i class="fas fa-arrow-up"></i></button>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
