@@ -4,86 +4,466 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Quiz Interativo - Apoio ao Estudante</title>
-  <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    /* RESET & VARIÁVEIS DE CORES (ROXO E LILÁS) */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    :root {
+      --primary-purple: #4A154B;
+      --medium-purple: #6A1B9A;
+      --light-purple: #8E24AA;
+      --soft-lilac: #F3E5F5;
+      --accent-lilac: #E1BEE7;
+      --dark-lilac: #CE93D8;
+      --text-color: #2D112C;
+      --bg-color: #FAF5FB;
+      --card-bg: #FFFFFF;
+      --border-color: #D1C4E9;
+    }
+
+    body.dark-theme {
+      --primary-purple: #1E0826;
+      --medium-purple: #3A0C53;
+      --light-purple: #7B1FA2;
+      --soft-lilac: #2A1B2E;
+      --accent-lilac: #4A154B;
+      --dark-lilac: #BA68C8;
+      --text-color: #F3E5F5;
+      --bg-color: #120517;
+      --card-bg: #1D0A25;
+      --border-color: #4A154B;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    /* CABEÇALHO E NAVEGAÇÃO */
+    header {
+      background-color: var(--primary-purple);
+      color: #FFFFFF;
+      padding: 0;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px 0 20px;
+    }
+
+    .header-brand h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #FFFFFF;
+    }
+
+    .header-brand h1 i {
+      color: var(--dark-lilac);
+    }
+
+    /* CONTROLES DE ACESSIBILIDADE - BOTÕES QUADRADOS */
+    .accessibility-controls {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 15px;
+    }
+
+    .btn-square {
+      border: 1px solid var(--accent-lilac);
+      border-radius: 0; /* FORMATO QUADRADO */
+      background: var(--medium-purple);
+      color: #FFFFFF;
+      padding: 8px 14px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-square:hover {
+      background: var(--dark-lilac);
+      color: var(--primary-purple);
+    }
+
+    /* BARRA DE NAVEGAÇÃO HORIZONTAL SUPERIOR */
+    nav {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.15);
+      margin-top: 10px;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      overflow-x: auto;
+    }
+
+    nav a {
+      display: block;
+      padding: 14px 22px;
+      color: #E1BEE7;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      border-radius: 0; /* ABAS QUADRADAS */
+      border-bottom: 3px solid transparent;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    nav a:hover {
+      background-color: rgba(255, 255, 255, 0.08);
+      color: #FFFFFF;
+    }
+
+    nav a.active {
+      color: #FFFFFF;
+      background-color: var(--medium-purple);
+      border-bottom: 3px solid var(--dark-lilac);
+    }
+
+    /* CONTEÚDO PRINCIPAL DO QUIZ */
+    .container {
+      max-width: 900px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+
+    .page-title {
+      color: var(--medium-purple);
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    body.dark-theme .page-title {
+      color: var(--dark-lilac);
+    }
+
+    .quiz-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-top: 6px solid var(--medium-purple);
+      border-radius: 0; /* QUADRADO */
+      padding: 30px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .question {
+      margin-bottom: 25px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .question:last-of-type {
+      border-bottom: none;
+    }
+
+    .question h3 {
+      color: var(--medium-purple);
+      font-size: 1.15rem;
+      margin-bottom: 12px;
+    }
+
+    body.dark-theme .question h3 {
+      color: var(--dark-lilac);
+    }
+
+    .option-label {
+      display: block;
+      padding: 10px 14px;
+      margin-bottom: 8px;
+      background-color: var(--bg-color);
+      border: 1px solid var(--border-color);
+      border-radius: 0; /* QUADRADO */
+      cursor: pointer;
+      transition: background-color 0.2s, border-color 0.2s;
+    }
+
+    .option-label:hover {
+      background-color: var(--soft-lilac);
+      border-color: var(--medium-purple);
+    }
+
+    .option-label input[type="radio"] {
+      margin-right: 10px;
+      accent-color: var(--medium-purple);
+    }
+
+    .btn-primary {
+      background-color: var(--medium-purple);
+      color: #FFFFFF;
+      border: none;
+      border-radius: 0; /* BOTÃO QUADRADO */
+      padding: 14px 28px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      transition: background-color 0.2s ease;
+      width: 100%;
+      margin-top: 15px;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--light-purple);
+    }
+
+    /* CAIXA DE RESULTADO */
+    .result-box {
+      margin-top: 25px;
+      padding: 20px;
+      background-color: var(--soft-lilac);
+      border-left: 6px solid var(--medium-purple);
+      border-radius: 0;
+      display: none;
+    }
+
+    .result-box h4 {
+      font-size: 1.3rem;
+      color: var(--medium-purple);
+      margin-bottom: 8px;
+    }
+
+    body.dark-theme .result-box h4 {
+      color: var(--dark-lilac);
+    }
+
+    /* RODAPÉ */
+    footer {
+      background-color: var(--primary-purple);
+      color: #E1BEE7;
+      text-align: center;
+      padding: 20px;
+      margin-top: 50px;
+    }
+
+    #back-to-top {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background-color: var(--medium-purple);
+      color: #FFFFFF;
+      border: 2px solid var(--accent-lilac);
+      border-radius: 0; /* QUADRADO */
+      width: 45px;
+      height: 45px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: none;
+    }
+
+    #back-to-top:hover {
+      background-color: var(--dark-lilac);
+      color: var(--primary-purple);
+    }
+  </style>
 </head>
 <body>
   <header>
     <div class="header-container">
-      <h1><i class="fas fa-hand-holding-heart"></i> Conexão & Respeito</h1>
-      <nav>
-        <ul>
-          <li><a href="index.html">Início</a></li>
-          <li><a href="escuta.html">Portal de Escuta</a></li>
-          <li><a href="quiz.html" class="active">Quiz Interativo</a></li>
-          <li><a href="referencias.html">Referências</a></li>
-        </ul>
-      </nav>
+      <div class="header-brand">
+        <h1><i class="fas fa-hand-holding-heart"></i> Conexão & Respeito</h1>
+      </div>
+      
       <div class="accessibility-controls">
-        <button id="theme-toggle"><i class="fas fa-moon"></i></button>
-        <button id="increase-font">A+</button>
-        <button id="decrease-font">A-</button>
+        <button id="theme-toggle" class="btn-square" aria-label="Alternar tema" title="Alternar tema claro/escuro">
+          <i class="fas fa-moon"></i>
+        </button>
+        <button id="increase-font" class="btn-square" aria-label="Aumentar fonte" title="Aumentar tamanho do texto">A+</button>
+        <button id="decrease-font" class="btn-square" aria-label="Diminuir fonte" title="Diminuir tamanho do texto">A-</button>
       </div>
     </div>
+
+    <!-- ABAS HORIZONTAIS DE NAVEGAÇÃO SUPERIOR -->
+    <nav>
+      <ul>
+        <li><a href="index.html">Início</a></li>
+        <li><a href="escuta.html">Portal de Escuta</a></li>
+        <li><a href="quiz.html" class="active">Quiz Interativo</a></li>
+        <li><a href="referencias.html">Referências</a></li>
+      </ul>
+    </nav>
   </header>
 
   <main class="container">
-    <h2>Quiz: Teste seus conhecimentos sobre Bullying e Respeito</h2>
+    <h2 class="page-title">Quiz: Teste seus conhecimentos sobre Bullying e Respeito</h2>
     
     <div id="quiz-container" class="quiz-card">
       <form id="quiz-form">
         <!-- Pergunta 1 -->
         <div class="question">
           <h3>1. O que caracteriza uma prática como Bullying?</h3>
-          <label><input type="radio" name="q1" value="a"> Uma brincadeira pontual onde todos riram juntos.</label><br>
-          <label><input type="radio" name="q1" value="b"> Agressões físicas ou verbais repetitivas e intencionais sem motivação aparente.</label><br>
-          <label><input type="radio" name="q1" value="c"> Uma discussão isolada entre dois amigos sobre um jogo.</label>
+          <label class="option-label"><input type="radio" name="q1" value="a"> Uma brincadeira pontual onde todos riram juntos.</label>
+          <label class="option-label"><input type="radio" name="q1" value="b"> Agressões físicas ou verbais repetitivas e intencionais sem motivação aparente.</label>
+          <label class="option-label"><input type="radio" name="q1" value="c"> Uma discussão isolada entre dois amigos sobre um jogo.</label>
         </div>
 
         <!-- Pergunta 2 -->
         <div class="question">
           <h3>2. Como você deve agir ao presenciar um colega sendo ridicularizado na escola?</h3>
-          <label><input type="radio" name="q2" value="a"> Filmar a situação e publicar nas redes sociais.</label><br>
-          <label><input type="radio" name="q2" value="b"> Ignorar e se juntar aos colegas para dar risada.</label><br>
-          <label><input type="radio" name="q2" value="c"> Não incentivar, oferecer apoio à vítima e avisar um adulto da escola.</label>
+          <label class="option-label"><input type="radio" name="q2" value="a"> Filmar a situação e publicar nas redes sociais.</label>
+          <label class="option-label"><input type="radio" name="q2" value="b"> Ignorar e se juntar aos colegas para dar risada.</label>
+          <label class="option-label"><input type="radio" name="q2" value="c"> Não incentivar, oferecer apoio à vítima e avisar um adulto da escola.</label>
         </div>
 
         <!-- Pergunta 3 -->
         <div class="question">
           <h3>3. Espalhar boatos virtuais ou criar perfis falsos para ofender alguém é considerado:</h3>
-          <label><input type="radio" name="q3" value="a"> Cyberbullying, uma forma grave de violência virtual.</label><br>
-          <label><input type="radio" name="q3" value="b"> Apenas uma piada sem consequências reais.</label><br>
-          <label><input type="radio" name="q3" value="c"> Liberdade de expressão na internet.</label>
+          <label class="option-label"><input type="radio" name="q3" value="a"> Cyberbullying, uma forma grave de violência virtual.</label>
+          <label class="option-label"><input type="radio" name="q3" value="b"> Apenas uma piada sem consequências reais.</label>
+          <label class="option-label"><input type="radio" name="q3" value="c"> Liberdade de expressão na internet.</label>
         </div>
 
         <!-- Pergunta 4 -->
         <div class="question">
           <h3>4. Qual das atitudes abaixo demonstra respeito à diversidade na escola?</h3>
-          <label><input type="radio" name="q4" value="a"> Aceitar e acolher os colegas independentemente das suas diferenças.</label><br>
-          <label><input type="radio" name="q4" value="b"> Excluir quem pensa ou se veste de forma diferente de você.</label><br>
-          <label><input type="radio" name="q4" value="c"> Fazer apelidos maldosos sobre o modo de falar do colega.</label>
+          <label class="option-label"><input type="radio" name="q4" value="a"> Aceitar e acolher os colegas independentemente das suas diferenças.</label>
+          <label class="option-label"><input type="radio" name="q4" value="b"> Excluir quem pensa ou se veste de forma diferente de você.</label>
+          <label class="option-label"><input type="radio" name="q4" value="c"> Fazer apelidos maldosos sobre o modo de falar do colega.</label>
         </div>
 
         <!-- Pergunta 5 -->
         <div class="question">
           <h3>5. Se você for vítima de bullying, qual é a melhor atitude a tomar?</h3>
-          <label><input type="radio" name="q5" value="a"> Guardar o segredo para não arrumar mais problemas.</label><br>
-          <label><input type="radio" name="q5" value="b"> Tentar revidar a agressão com violência física.</label><br>
-          <label><input type="radio" name="q5" value="c"> Buscar ajuda imediata com um professor, responsável ou profissional da escola.</label>
+          <label class="option-label"><input type="radio" name="q5" value="a"> Guardar o segredo para não arrumar mais problemas.</label>
+          <label class="option-label"><input type="radio" name="q5" value="b"> Tentar revidar a agressão com violência física.</label>
+          <label class="option-label"><input type="radio" name="q5" value="c"> Buscar ajuda imediata com um professor, responsável ou profissional da escola.</label>
         </div>
 
         <button type="button" id="submit-quiz" class="btn-primary">Finalizar Quiz</button>
       </form>
 
-      <div id="quiz-result" class="result-box hidden"></div>
+      <div id="quiz-result" class="result-box"></div>
     </div>
   </main>
 
   <footer>
-    <p>&copy; 2026 Portal de Apoio ao Estudante.</p>
+    <p>&copy; 2026 Portal de Apoio ao Estudante - Conexão & Respeito.</p>
     <button id="back-to-top" title="Voltar ao Topo"><i class="fas fa-arrow-up"></i></button>
   </footer>
 
-  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Processamento do Quiz
+      const answers = { q1: 'b', q2: 'c', q3: 'a', q4: 'a', q5: 'c' };
+      const submitBtn = document.getElementById('submit-quiz');
+      const resultBox = document.getElementById('quiz-result');
+
+      if (submitBtn && resultBox) {
+        submitBtn.addEventListener('click', () => {
+          let score = 0;
+          let answeredCount = 0;
+
+          for (let i = 1; i <= 5; i++) {
+            const selected = document.querySelector(`input[name="q${i}"]:checked`);
+            if (selected) {
+              answeredCount++;
+              if (selected.value === answers[`q${i}`]) {
+                score++;
+              }
+            }
+          }
+
+          if (answeredCount < 5) {
+            alert('Por favor, responda a todas as 5 perguntas antes de finalizar!');
+            return;
+          }
+
+          resultBox.style.display = 'block';
+          let message = '';
+
+          if (score === 5) {
+            message = 'Parabéns! Você acertou todas as questões! Você demonstra excelente compreensão sobre respeito e convivência saudável.';
+          } else if (score >= 3) {
+            message = 'Bom trabalho! Você compreende os princípios básicos de respeito e prevenção ao bullying. Continue assim!';
+          } else {
+            message = 'Atenção aos detalhes! Vale a pena revisar o material sobre bullying para entender melhor como agir nestas situações.';
+          }
+
+          resultBox.innerHTML = `
+            <h4>Sua pontuação: ${score} de 5</h4>
+            <p>${message}</p>
+          `;
+          
+          resultBox.scrollIntoView({ behavior: 'smooth' });
+        });
+      }
+
+      // 2. Alternador de Tema
+      const themeToggle = document.getElementById('theme-toggle');
+      if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+          document.body.classList.toggle('dark-theme');
+          const icon = themeToggle.querySelector('i');
+          if (icon) {
+            icon.classList.toggle('fa-moon');
+            icon.classList.toggle('fa-sun');
+          }
+        });
+      }
+
+      // 3. Controle de Fonte
+      const btnIncrease = document.getElementById('increase-font');
+      const btnDecrease = document.getElementById('decrease-font');
+      let currentFontSize = 100;
+
+      if (btnIncrease && btnDecrease) {
+        btnIncrease.addEventListener('click', () => {
+          if (currentFontSize < 130) {
+            currentFontSize += 10;
+            document.body.style.fontSize = `${currentFontSize}%`;
+          }
+        });
+
+        btnDecrease.addEventListener('click', () => {
+          if (currentFontSize > 80) {
+            currentFontSize -= 10;
+            document.body.style.fontSize = `${currentFontSize}%`;
+          }
+        });
+      }
+
+      // 4. Botão Voltar ao Topo
+      const backToTopBtn = document.getElementById('back-to-top');
+      if (backToTopBtn) {
+        window.addEventListener('scroll', () => {
+          if (window.scrollY > 300) {
+            backToTopBtn.style.display = 'block';
+          } else {
+            backToTopBtn.style.display = 'none';
+          }
+        });
+
+        backToTopBtn.addEventListener('click', () => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      }
+    });
+  </script>
 </body>
 </html>
