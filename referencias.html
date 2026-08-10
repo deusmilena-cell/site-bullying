@@ -4,62 +4,452 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Referências - Apoio ao Estudante</title>
-  <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    /* RESET & VARIÁVEIS DE CORES (ROXO E LILÁS) */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    :root {
+      --primary-purple: #4A154B;
+      --medium-purple: #6A1B9A;
+      --light-purple: #8E24AA;
+      --soft-lilac: #F3E5F5;
+      --accent-lilac: #E1BEE7;
+      --dark-lilac: #CE93D8;
+      --text-color: #2D112C;
+      --bg-color: #FAF5FB;
+      --card-bg: #FFFFFF;
+      --border-color: #D1C4E9;
+    }
+
+    body.dark-theme {
+      --primary-purple: #1E0826;
+      --medium-purple: #3A0C53;
+      --light-purple: #7B1FA2;
+      --soft-lilac: #2A1B2E;
+      --accent-lilac: #4A154B;
+      --dark-lilac: #BA68C8;
+      --text-color: #F3E5F5;
+      --bg-color: #120517;
+      --card-bg: #1D0A25;
+      --border-color: #4A154B;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    /* CABEÇALHO E NAVEGAÇÃO */
+    header {
+      background-color: var(--primary-purple);
+      color: #FFFFFF;
+      padding: 0;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px 0 20px;
+    }
+
+    .header-brand h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #FFFFFF;
+    }
+
+    .header-brand h1 i {
+      color: var(--dark-lilac);
+    }
+
+    /* CONTROLES DE ACESSIBILIDADE - BOTÕES QUADRADOS */
+    .accessibility-controls {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 15px;
+    }
+
+    .btn-square {
+      border: 1px solid var(--accent-lilac);
+      border-radius: 0; /* FORMATO QUADRADO */
+      background: var(--medium-purple);
+      color: #FFFFFF;
+      padding: 8px 14px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-square:hover {
+      background: var(--dark-lilac);
+      color: var(--primary-purple);
+    }
+
+    /* BARRA DE NAVEGAÇÃO HORIZONTAL SUPERIOR */
+    nav {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.15);
+      margin-top: 10px;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      overflow-x: auto;
+    }
+
+    nav a {
+      display: block;
+      padding: 14px 22px;
+      color: #E1BEE7;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      border-radius: 0; /* ABAS QUADRADAS */
+      border-bottom: 3px solid transparent;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    nav a:hover {
+      background-color: rgba(255, 255, 255, 0.08);
+      color: #FFFFFF;
+    }
+
+    nav a.active {
+      color: #FFFFFF;
+      background-color: var(--medium-purple);
+      border-bottom: 3px solid var(--dark-lilac);
+    }
+
+    /* CONTEÚDO PRINCIPAL DA PÁGINA DE REFERÊNCIAS */
+    .container {
+      max-width: 1000px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+
+    .page-title {
+      color: var(--medium-purple);
+      font-size: 1.8rem;
+      margin-bottom: 25px;
+      text-align: center;
+    }
+
+    body.dark-theme .page-title {
+      color: var(--dark-lilac);
+    }
+
+    .ref-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-top: 5px solid var(--medium-purple);
+      border-radius: 0; /* QUADRADO */
+      padding: 30px;
+      margin-bottom: 25px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .ref-card h3 {
+      color: var(--medium-purple);
+      font-size: 1.3rem;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    body.dark-theme .ref-card h3 {
+      color: var(--dark-lilac);
+    }
+
+    .ref-list {
+      list-style: none;
+    }
+
+    .ref-list li {
+      padding: 12px 15px;
+      margin-bottom: 10px;
+      background-color: var(--bg-color);
+      border: 1px solid var(--border-color);
+      border-radius: 0; /* QUADRADO */
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .ref-info strong {
+      color: var(--medium-purple);
+      display: block;
+    }
+
+    body.dark-theme .ref-info strong {
+      color: var(--dark-lilac);
+    }
+
+    .ref-info span {
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+
+    .btn-square-link {
+      background-color: var(--medium-purple);
+      color: #FFFFFF;
+      border: 1px solid var(--medium-purple);
+      border-radius: 0; /* QUADRADO */
+      padding: 8px 16px;
+      font-size: 0.85rem;
+      font-weight: bold;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-square-link:hover {
+      background-color: var(--light-purple);
+      border-color: var(--light-purple);
+    }
+
+    /* RODAPÉ */
+    footer {
+      background-color: var(--primary-purple);
+      color: #E1BEE7;
+      text-align: center;
+      padding: 20px;
+      margin-top: 50px;
+    }
+
+    #back-to-top {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background-color: var(--medium-purple);
+      color: #FFFFFF;
+      border: 2px solid var(--accent-lilac);
+      border-radius: 0; /* QUADRADO */
+      width: 45px;
+      height: 45px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: none;
+    }
+
+    #back-to-top:hover {
+      background-color: var(--dark-lilac);
+      color: var(--primary-purple);
+    }
+  </style>
 </head>
 <body>
   <header>
     <div class="header-container">
-      <h1><i class="fas fa-hand-holding-heart"></i> Conexão & Respeito</h1>
-      <nav>
-        <ul>
-          <li><a href="index.html">Início</a></li>
-          <li><a href="escuta.html">Portal de Escuta</a></li>
-          <li><a href="quiz.html">Quiz Interativo</a></li>
-          <li><a href="referencias.html" class="active">Referências</a></li>
-        </ul>
-      </nav>
+      <div class="header-brand">
+        <h1><i class="fas fa-hand-holding-heart"></i> Conexão & Respeito</h1>
+      </div>
+      
+      <!-- CONTROLES DE ACESSIBILIDADE COM BOTOES QUADRADOS -->
       <div class="accessibility-controls">
-        <button id="theme-toggle"><i class="fas fa-moon"></i></button>
-        <button id="increase-font">A+</button>
-        <button id="decrease-font">A-</button>
+        <button id="theme-toggle" class="btn-square" aria-label="Alternar tema" title="Alternar tema claro/escuro">
+          <i class="fas fa-moon"></i>
+        </button>
+        <button id="increase-font" class="btn-square" aria-label="Aumentar fonte" title="Aumentar tamanho do texto">A+</button>
+        <button id="decrease-font" class="btn-square" aria-label="Diminuir fonte" title="Diminuir tamanho do texto">A-</button>
       </div>
     </div>
+
+    <!-- ABAS HORIZONTAIS DE NAVEGAÇÃO SUPERIOR -->
+    <nav>
+      <ul>
+        <li><a href="index.html">Início</a></li>
+        <li><a href="escuta.html">Portal de Escuta</a></li>
+        <li><a href="quiz.html">Quiz Interativo</a></li>
+        <li><a href="referencias.html" class="active">Referências</a></li>
+      </ul>
+    </nav>
   </header>
 
   <main class="container">
-    <h2>Fontes Consultadas e Materiais Educativos</h2>
-    <p>Para a construção do conteúdo deste portal, foram utilizadas fontes confiáveis e oficiais sobre proteção e acolhimento juvenil:</p>
+    <h2 class="page-title">Referências & Materiais de Apoio</h2>
 
-    <ul class="ref-list">
-      <li>
-        <i class="fas fa-link"></i> 
-        <strong>Ministério da Educação (MEC):</strong>
-        <a href="https://www.gov.br/mec" target="_blank" rel="noopener noreferrer">Ações e orientações sobre clima escolar e prevenção ao bullying.</a>
-      </li>
-      <li>
-        <i class="fas fa-link"></i> 
-        <strong>UNICEF Brasil:</strong>
-        <a href="https://www.unicef.org/brazil/" target="_blank" rel="noopener noreferrer">Guias de prevenção à violência nas escolas e proteção à infância e adolescência.</a>
-      </li>
-      <li>
-        <i class="fas fa-link"></i> 
-        <strong>SaferNet Brasil:</strong>
-        <a href="https://new.safernet.org.br/" target="_blank" rel="noopener noreferrer">Orientações sobre cidadania digital e combate ao cyberbullying.</a>
-      </li>
-      <li>
-        <i class="fas fa-link"></i> 
-        <strong>Lei nº 13.185/2015:</strong>
-        <a href="http://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13185.htm" target="_blank" rel="noopener noreferrer">Institui o Programa de Combate à Intimidação Sistemática (Bullying) no Brasil.</a>
-      </li>
-    </ul>
+    <!-- SEÇÃO 1: LEGISLAÇÃO E DIRETRIZES -->
+    <section class="ref-card">
+      <h3><i class="fas fa-gavel"></i> Legislação e Normativas</h3>
+      <ul class="ref-list">
+        <li>
+          <div class="ref-info">
+            <strong>Lei nº 13.185/2015</strong>
+            <span>Institui o Programa de Combate à Intimidação Sistemática (Bullying) em todo o território nacional.</span>
+          </div>
+          <a href="https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13185.htm" target="_blank" rel="noopener noreferrer" class="btn-square-link">
+            Acessar <i class="fas fa-external-link-alt"></i>
+          </a>
+        </li>
+        <li>
+          <div class="ref-info">
+            <strong>Lei nº 14.811/2024</strong>
+            <span>Inclui o bullying e cyberbullying no Código Penal e institui medidas de proteção à criança e ao adolescente nas escolas.</span>
+          </div>
+          <a href="https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2024/lei/l14811.htm" target="_blank" rel="noopener noreferrer" class="btn-square-link">
+            Acessar <i class="fas fa-external-link-alt"></i>
+          </a>
+        </li>
+        <li>
+          <div class="ref-info">
+            <strong>Estatuto da Criança e do Adolescente (ECA)</strong>
+            <span>Lei nº 8.069/1990 - Dispõe sobre a proteção integral à criança e ao adolescente.</span>
+          </div>
+          <a href="https://www.planalto.gov.br/ccivil_03/leis/l8069.htm" target="_blank" rel="noopener noreferrer" class="btn-square-link">
+            Acessar <i class="fas fa-external-link-alt"></i>
+          </a>
+        </li>
+      </ul>
+    </section>
+
+    <!-- SEÇÃO 2: CANAIS DE AJUDA -->
+    <section class="ref-card">
+      <h3><i class="fas fa-phone-alt"></i> Canais e Redes de Apoio</h3>
+      <ul class="ref-list">
+        <li>
+          <div class="ref-info">
+            <strong>CVV - Centro de Valorização da Vida</strong>
+            <span>Apoio emocional e prevenção do suicídio gratuito e confidencial pelo telefone 188.</span>
+          </div>
+          <a href="https://cvv.org.br/" target="_blank" rel="noopener noreferrer" class="btn-square-link">
+            Visitar Site <i class="fas fa-external-link-alt"></i>
+          </a>
+        </li>
+        <li>
+          <div class="ref-info">
+            <strong>SaferNet Brasil</strong>
+            <span>Plataforma de orientação para combate aos crimes cibernéticos e cyberbullying.</span>
+          </div>
+          <a href="https://new.safernet.org.br/" target="_blank" rel="noopener noreferrer" class="btn-square-link">
+            Visitar Site <i class="fas fa-external-link-alt"></i>
+          </a>
+        </li>
+        <li>
+          <div class="ref-info">
+            <strong>Disque 100 - Direitos Humanos</strong>
+            <span>Serviço público para denúncias de violações de direitos humanos contra crianças e adolescentes.</span>
+          </div>
+          <a href="https://www.gov.br/mdh/pt-br/onde-estar/disque-100" target="_blank" rel="noopener noreferrer" class="btn-square-link">
+            Saiba Mais <i class="fas fa-external-link-alt"></i>
+          </a>
+        </li>
+      </ul>
+    </section>
+
+    <!-- SEÇÃO 3: MATERIAIS EDUCATIVOS -->
+    <section class="ref-card">
+      <h3><i class="fas fa-book"></i> Leituras e Guia Prático</h3>
+      <ul class="ref-list">
+        <li>
+          <div class="ref-info">
+            <strong>Guia sobre Cyberbullying (SaferNet)</strong>
+            <span>Material instrutivo com orientações para alunos, pais e educadores sobre segurança digital.</span>
+          </div>
+          <a href="https://canalseguro.org.br/" target="_blank" rel="noopener noreferrer" class="btn-square-link">
+            Consultar <i class="fas fa-external-link-alt"></i>
+          </a>
+        </li>
+        <li>
+          <div class="ref-info">
+            <strong>Cartilha Ministério Público - Convivência Escolar</strong>
+            <span>Orientações teóricas e práticas para construção de ambientes escolares pacificadores.</span>
+          </div>
+          <a href="https://www.cnmp.mp.br" target="_blank" rel="noopener noreferrer" class="btn-square-link">
+            Consultar <i class="fas fa-external-link-alt"></i>
+          </a>
+        </li>
+      </ul>
+    </section>
   </main>
 
   <footer>
-    <p>&copy; 2026 Portal de Apoio ao Estudante.</p>
+    <p>&copy; 2026 Portal de Apoio ao Estudante - Conexão & Respeito.</p>
     <button id="back-to-top" title="Voltar ao Topo"><i class="fas fa-arrow-up"></i></button>
   </footer>
 
-  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Modo Escuro/Claro
+      const themeToggle = document.getElementById('theme-toggle');
+      if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+          document.body.classList.toggle('dark-theme');
+          const icon = themeToggle.querySelector('i');
+          if (icon) {
+            icon.classList.toggle('fa-moon');
+            icon.classList.toggle('fa-sun');
+          }
+        });
+      }
+
+      // 2. Controle de Fonte
+      const btnIncrease = document.getElementById('increase-font');
+      const btnDecrease = document.getElementById('decrease-font');
+      let currentFontSize = 100;
+
+      if (btnIncrease && btnDecrease) {
+        btnIncrease.addEventListener('click', () => {
+          if (currentFontSize < 130) {
+            currentFontSize += 10;
+            document.body.style.fontSize = `${currentFontSize}%`;
+          }
+        });
+
+        btnDecrease.addEventListener('click', () => {
+          if (currentFontSize > 80) {
+            currentFontSize -= 10;
+            document.body.style.fontSize = `${currentFontSize}%`;
+          }
+        });
+      }
+
+      // 3. Botão Voltar ao Topo
+      const backToTopBtn = document.getElementById('back-to-top');
+      if (backToTopBtn) {
+        window.addEventListener('scroll', () => {
+          if (window.scrollY > 300) {
+            backToTopBtn.style.display = 'block';
+          } else {
+            backToTopBtn.style.display = 'none';
+          }
+        });
+
+        backToTopBtn.addEventListener('click', () => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      }
+    });
+  </script>
 </body>
 </html>
