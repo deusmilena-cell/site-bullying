@@ -3,176 +3,462 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portal de Apoio ao Estudante - Conexão & Respeito</title>
-  <link rel="stylesheet" href="css/style.css">
+  <title>Início - Apoio ao Estudante</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-</head>
-<body>
-  <header>
-    <div class="header-container">
-      <h1><i class="fas fa-hand-holding-heart"></i> Conexão & Respeito</h1>
-      <nav>
-        <ul>
-          <li><a href="index.html" class="active">Início</a></li>
-          <li><a href="escuta.html">Portal de Escuta</a></li>
-          <li><a href="quiz.html">Quiz Interativo</a></li>
-          <li><a href="referencias.html">Referências</a></li>
-        </ul>
-      </nav>
-      <div class="accessibility-controls">
-        <button id="theme-toggle" aria-label="Alternar modo escuro"><i class="fas fa-moon"></i></button>
-        <button id="increase-font" aria-label="Aumentar Fonte">A+</button>
-        <button id="decrease-font" aria-label="Diminuir Fonte">A-</button>
-      </div>
-    </div>
-  </header>
-
-  <main>
-    <section class="hero">
-      <div class="hero-content">
-        <h2>Bem-vindo ao Portal de Apoio ao Estudante</h2>
-        <p>Aqui você encontrará informações, orientações e apoio sobre situações vivenciadas no ambiente escolar. Este é um espaço seguro voltado à promoção do respeito, da empatia e da convivência harmoniosa.</p>
-        <a href="escuta.html" class="btn-primary">Acesse o Portal de Escuta</a>
-      </div>
-    </section>
-
-    <section class="info-cards">
-      <article class="card">
-        <i class="fas fa-bullhorn icon"></i>
-        <h3>O que é Bullying?</h3>
-        <p>São atitudes agressivas, intencionais e repetitivas adotadas sem motivação evidente, praticadas por um ou mais estudantes contra outro.</p>
-      </article>
-
-      <article class="card">
-        <i class="fas fa-user-shield icon"></i>
-        <h3>Não Sofra em Silêncio</h3>
-        <p>Pedir ajuda não é sinal de fraqueza, mas sim de coragem. Sempre converse com adultos de sua confiança na escola ou na família.</p>
-      </article>
-
-      <article class="card">
-        <i class="fas fa-users icon"></i>
-        <h3>Seja um Aliado</h3>
-        <p>Apoie colegas que estejam passando por momentos difíceis. Pequenas atitudes de empatia transformam o ambiente escolar.</p>
-      </article>
-    </section>
-  </main>
-
-  <footer>
-    <p>&copy; 2026 Portal de Apoio ao Estudante. Projeto Educacional sem fins lucrativos.</p>
-    <button id="back-to-top" title="Voltar ao Topo"><i class="fas fa-arrow-up"></i></button>
-  </footer>
-
-  <script src="js/main.js"></script>
-</body>
-</html>
-
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Meu Site Personalizado</title>
   <style>
-    /* Variáveis de cores (Roxo e Lilás) */
-    :root {
-      --roxo-escuro: #4A154B;
-      --roxo-principal: #6B2D5C;
-      --lilas-claro: #E8D7F1;
-      --lilas-medio: #D3B7D8;
-      --texto-escuro: #2D112C;
-    }
-
+    /* RESET & VARIÁVEIS DE CORES (ROXO E LILÁS) */
     * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
-      font-family: Arial, sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    :root {
+      --primary-purple: #4A154B;
+      --medium-purple: #6A1B9A;
+      --light-purple: #8E24AA;
+      --soft-lilac: #F3E5F5;
+      --accent-lilac: #E1BEE7;
+      --dark-lilac: #CE93D8;
+      --text-color: #2D112C;
+      --bg-color: #FAF5FB;
+      --card-bg: #FFFFFF;
+      --border-color: #D1C4E9;
+    }
+
+    body.dark-theme {
+      --primary-purple: #1E0826;
+      --medium-purple: #3A0C53;
+      --light-purple: #7B1FA2;
+      --soft-lilac: #2A1B2E;
+      --accent-lilac: #4A154B;
+      --dark-lilac: #BA68C8;
+      --text-color: #F3E5F5;
+      --bg-color: #120517;
+      --card-bg: #1D0A25;
+      --border-color: #4A154B;
     }
 
     body {
-      background-color: var(--lilas-claro);
-      color: var(--texto-escuro);
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      transition: background-color 0.3s, color 0.3s;
     }
 
-    /* Menu de Navegação Horizontal no Topo */
-    .top-nav {
-      background-color: var(--roxo-escuro);
+    /* CABEÇALHO E NAVEGAÇÃO */
+    header {
+      background-color: var(--primary-purple);
+      color: #FFFFFF;
+      padding: 0;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
       display: flex;
+      flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
-      padding: 15px 30px;
+      padding: 15px 20px 0 20px;
     }
 
-    .logo {
-      color: #ffffff;
+    .header-brand h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #FFFFFF;
+    }
+
+    .header-brand h1 i {
+      color: var(--dark-lilac);
+    }
+
+    /* CONTROLES DE ACESSIBILIDADE - BOTÕES QUADRADOS */
+    .accessibility-controls {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 15px;
+    }
+
+    .btn-square {
+      border: 1px solid var(--accent-lilac);
+      border-radius: 0; /* FORMATO QUADRADO */
+      background: var(--medium-purple);
+      color: #FFFFFF;
+      padding: 8px 14px;
       font-weight: bold;
-      font-size: 1.5rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .nav-links {
+    .btn-square:hover {
+      background: var(--dark-lilac);
+      color: var(--primary-purple);
+    }
+
+    /* BARRA DE NAVEGAÇÃO HORIZONTAL SUPERIOR */
+    nav {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.15);
+      margin-top: 10px;
+    }
+
+    nav ul {
       display: flex;
       list-style: none;
-      gap: 10px; /* Separação entre as abas */
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      overflow-x: auto;
     }
 
-    /* Botões Interativos Quadrados */
-    .nav-btn, .action-btn {
-      background-color: var(--roxo-principal);
-      color: white;
+    nav a {
+      display: block;
+      padding: 14px 22px;
+      color: #E1BEE7;
       text-decoration: none;
-      padding: 10px 20px;
-      border: 2px solid transparent;
-      border-radius: 0px; /* Formato 100% quadrado */
-      cursor: pointer;
-      font-weight: bold;
-      display: inline-block;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      border-radius: 0; /* ABAS QUADRADAS */
+      border-bottom: 3px solid transparent;
       transition: all 0.2s ease;
+      white-space: nowrap;
     }
 
-    /* Efeito Hover (Interatividade) */
-    .nav-btn:hover, .action-btn:hover {
-      background-color: var(--lilas-medio);
-      color: var(--roxo-escuro);
-      border-color: var(--roxo-escuro);
+    nav a:hover {
+      background-color: rgba(255, 255, 255, 0.08);
+      color: #FFFFFF;
     }
 
-    /* Conteúdo Principal */
-    .content {
-      padding: 50px 20px;
+    nav a.active {
+      color: #FFFFFF;
+      background-color: var(--medium-purple);
+      border-bottom: 3px solid var(--dark-lilac);
+    }
+
+    /* CONTEÚDO PRINCIPAL DA HOME */
+    .container {
+      max-width: 1100px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+
+    /* HERO BANNER */
+    .hero-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-top: 6px solid var(--medium-purple);
+      border-radius: 0; /* QUADRADO */
+      padding: 40px 30px;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
       text-align: center;
     }
 
-    .content h1 {
+    .hero-card h2 {
+      color: var(--medium-purple);
+      font-size: 2.2rem;
       margin-bottom: 15px;
-      color: var(--roxo-escuro);
     }
 
-    .content p {
-      margin-bottom: 25px;
+    body.dark-theme .hero-card h2 {
+      color: var(--dark-lilac);
+    }
+
+    .hero-card p {
+      font-size: 1.15rem;
+      max-width: 800px;
+      margin: 0 auto 25px auto;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-square-hero {
+      background-color: var(--medium-purple);
+      color: #FFFFFF;
+      border: 2px solid var(--medium-purple);
+      border-radius: 0; /* QUADRADO */
+      padding: 12px 24px;
+      font-size: 1rem;
+      font-weight: 700;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-square-hero:hover {
+      background-color: var(--light-purple);
+      border-color: var(--light-purple);
+    }
+
+    .btn-square-hero.btn-outline {
+      background-color: transparent;
+      color: var(--medium-purple);
+      border-color: var(--medium-purple);
+    }
+
+    body.dark-theme .btn-square-hero.btn-outline {
+      color: var(--dark-lilac);
+      border-color: var(--dark-lilac);
+    }
+
+    .btn-square-hero.btn-outline:hover {
+      background-color: var(--soft-lilac);
+      color: var(--primary-purple);
+    }
+
+    /* SEÇÃO DE RECURSOS (GRID) */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+      margin-bottom: 30px;
+    }
+
+    .feature-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-top: 4px solid var(--dark-lilac);
+      border-radius: 0; /* QUADRADO */
+      padding: 25px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+    }
+
+    .feature-card .icon-box {
+      font-size: 2.2rem;
+      color: var(--medium-purple);
+      margin-bottom: 15px;
+    }
+
+    body.dark-theme .feature-card .icon-box {
+      color: var(--dark-lilac);
+    }
+
+    .feature-card h3 {
+      font-size: 1.3rem;
+      color: var(--medium-purple);
+      margin-bottom: 10px;
+    }
+
+    body.dark-theme .feature-card h3 {
+      color: var(--dark-lilac);
+    }
+
+    .feature-card p {
+      font-size: 0.98rem;
+      margin-bottom: 20px;
+    }
+
+    /* DESTAQUE DE EMERGÊNCIA */
+    .emergency-banner {
+      background-color: var(--soft-lilac);
+      border: 1px solid var(--border-color);
+      border-left: 6px solid var(--medium-purple);
+      border-radius: 0; /* QUADRADO */
+      padding: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .emergency-text {
+      flex: 1;
+    }
+
+    .emergency-text h3 {
+      color: var(--medium-purple);
+      font-size: 1.25rem;
+      margin-bottom: 5px;
+    }
+
+    body.dark-theme .emergency-text h3 {
+      color: var(--dark-lilac);
+    }
+
+    /* RODAPÉ */
+    footer {
+      background-color: var(--primary-purple);
+      color: #E1BEE7;
+      text-align: center;
+      padding: 20px;
+      margin-top: 50px;
+    }
+
+    #back-to-top {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background-color: var(--medium-purple);
+      color: #FFFFFF;
+      border: 2px solid var(--accent-lilac);
+      border-radius: 0; /* QUADRADO */
+      width: 45px;
+      height: 45px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: none;
+    }
+
+    #back-to-top:hover {
+      background-color: var(--dark-lilac);
+      color: var(--primary-purple);
     }
   </style>
 </head>
 <body>
+  <header>
+    <div class="header-container">
+      <div class="header-brand">
+        <h1><i class="fas fa-hand-holding-heart"></i> Conexão & Respeito</h1>
+      </div>
+      
+      <!-- CONTROLES DE ACESSIBILIDADE COM BOTOES QUADRADOS -->
+      <div class="accessibility-controls">
+        <button id="theme-toggle" class="btn-square" aria-label="Alternar tema" title="Alternar tema claro/escuro">
+          <i class="fas fa-moon"></i>
+        </button>
+        <button id="increase-font" class="btn-square" aria-label="Aumentar fonte" title="Aumentar tamanho do texto">A+</button>
+        <button id="decrease-font" class="btn-square" aria-label="Diminuir fonte" title="Diminuir tamanho do texto">A-</button>
+      </div>
+    </div>
 
-  <!-- Menu de abas na parte superior -->
-  <header class="top-nav">
-    <div class="logo">MeuSite</div>
+    <!-- ABAS HORIZONTAIS DE NAVEGAÇÃO SUPERIOR -->
     <nav>
-      <ul class="nav-links">
-        <li><a href="#" class="nav-btn">Início</a></li>
-        <li><a href="#" class="nav-btn">Sobre</a></li>
-        <li><a href="#" class="nav-btn">Serviços</a></li>
-        <li><a href="#" class="nav-btn">Contato</a></li>
+      <ul>
+        <li><a href="index.html" class="active">Início</a></li>
+        <li><a href="escuta.html">Portal de Escuta</a></li>
+        <li><a href="quiz.html">Quiz Interativo</a></li>
+        <li><a href="referencias.html">Referências</a></li>
       </ul>
     </nav>
   </header>
 
-  <!-- Conteúdo -->
-  <main class="content">
-    <h1>Bem-vindo ao Site!</h1>
-    <p>Layout estilizado com tons de roxo, lilás e botões quadrados.</p>
-    <button class="action-btn">Ação Principal</button>
+  <main class="container">
+    <!-- HERO SECTION -->
+    <section class="hero-card">
+      <h2>Bem-vindo ao Portal Conexão & Respeito</h2>
+      <p>Um espaço dedicado ao apoio emocional, combate ao bullying e promoção de um ambiente escolar acolhedor e inclusivo. Você não precisa enfrentar os desafios sozinho.</p>
+      <div class="hero-actions">
+        <a href="escuta.html" class="btn-square-hero"><i class="fas fa-comment-alt"></i> Portal de Escuta</a>
+        <a href="quiz.html" class="btn-square-hero btn-outline"><i class="fas fa-question-circle"></i> Testar Conhecimentos</a>
+      </div>
+    </section>
+
+    <!-- SEÇÕES DO SITE -->
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="icon-box"><i class="fas fa-comments"></i></div>
+        <h3>Portal de Escuta</h3>
+        <p>Um ambiente seguro para expressar seus sentimentos e relatar situações vivenciadas, sem julgamentos.</p>
+        <a href="escuta.html" class="btn-square-hero btn-outline">Acessar Espaço</a>
+      </div>
+
+      <div class="feature-card">
+        <div class="icon-box"><i class="fas fa-gamepad"></i></div>
+        <h3>Quiz Interativo</h3>
+        <p>Aprenda mais sobre empatia, convivência saudável e como identificar e combater o bullying escolar.</p>
+        <a href="quiz.html" class="btn-square-hero btn-outline">Iniciar Quiz</a>
+      </div>
+
+      <div class="feature-card">
+        <div class="icon-box"><i class="fas fa-book-open"></i></div>
+        <h3>Materiais & Referências</h3>
+        <p>Consulte legislações, contatos úteis, órgãos de apoio e conteúdos educativos sobre direitos humanos.</p>
+        <a href="referencias.html" class="btn-square-hero btn-outline">Ver Recursos</a>
+      </div>
+    </div>
+
+    <!-- BLOCO DE AJUDA RÁPIDA -->
+    <section class="emergency-banner">
+      <div class="emergency-text">
+        <h3><i class="fas fa-headset"></i> Precisa de ajuda ou orientação imediata?</h3>
+        <p>O <strong>CVV (Centro de Valorização da Vida)</strong> atende gratuitamente e com total sigilo pelo telefone <strong>188</strong>.</p>
+      </div>
+      <a href="escuta.html" class="btn-square-hero"><i class="fas fa-phone-alt"></i> Ver Mais Contatos</a>
+    </section>
   </main>
 
+  <footer>
+    <p>&copy; 2026 Portal de Apoio ao Estudante - Conexão & Respeito.</p>
+    <button id="back-to-top" title="Voltar ao Topo"><i class="fas fa-arrow-up"></i></button>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Modo Escuro/Claro
+      const themeToggle = document.getElementById('theme-toggle');
+      if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+          document.body.classList.toggle('dark-theme');
+          const icon = themeToggle.querySelector('i');
+          if (icon) {
+            icon.classList.toggle('fa-moon');
+            icon.classList.toggle('fa-sun');
+          }
+        });
+      }
+
+      // 2. Controle de Fonte
+      const btnIncrease = document.getElementById('increase-font');
+      const btnDecrease = document.getElementById('decrease-font');
+      let currentFontSize = 100;
+
+      if (btnIncrease && btnDecrease) {
+        btnIncrease.addEventListener('click', () => {
+          if (currentFontSize < 130) {
+            currentFontSize += 10;
+            document.body.style.fontSize = `${currentFontSize}%`;
+          }
+        });
+
+        btnDecrease.addEventListener('click', () => {
+          if (currentFontSize > 80) {
+            currentFontSize -= 10;
+            document.body.style.fontSize = `${currentFontSize}%`;
+          }
+        });
+      }
+
+      // 3. Botão Voltar ao Topo
+      const backToTopBtn = document.getElementById('back-to-top');
+      if (backToTopBtn) {
+        window.addEventListener('scroll', () => {
+          if (window.scrollY > 300) {
+            backToTopBtn.style.display = 'block';
+          } else {
+            backToTopBtn.style.display = 'none';
+          }
+        });
+
+        backToTopBtn.addEventListener('click', () => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      }
+    });
+  </script>
 </body>
 </html>
