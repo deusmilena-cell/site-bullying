@@ -4,27 +4,391 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Portal de Escuta - Apoio ao Estudante</title>
-  <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    /* RESET & BASE STYLES */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    :root {
+      --primary-purple: #4A154B;
+      --medium-purple: #6A1B9A;
+      --light-purple: #8E24AA;
+      --soft-lilac: #F3E5F5;
+      --accent-lilac: #E1BEE7;
+      --dark-lilac: #CE93D8;
+      --text-color: #2D112C;
+      --bg-color: #FAF5FB;
+      --card-bg: #FFFFFF;
+      --border-color: #D1C4E9;
+    }
+
+    body.dark-theme {
+      --primary-purple: #1E0826;
+      --medium-purple: #3A0C53;
+      --light-purple: #7B1FA2;
+      --soft-lilac: #2A1B2E;
+      --accent-lilac: #4A154B;
+      --dark-lilac: #BA68C8;
+      --text-color: #F3E5F5;
+      --bg-color: #120517;
+      --card-bg: #1D0A25;
+      --border-color: #4A154B;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    /* HEADER & NAVIGATION */
+    header {
+      background-color: var(--primary-purple);
+      color: #FFFFFF;
+      padding: 0;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px 0 20px;
+    }
+
+    .header-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 15px;
+    }
+
+    .header-brand h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: #FFFFFF;
+    }
+
+    .header-brand h1 i {
+      color: var(--dark-lilac);
+    }
+
+    /* ACCESSIBILITY CONTROLS - SQUARE BUTTONS */
+    .accessibility-controls {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 15px;
+    }
+
+    .btn-square {
+      border: 1px solid var(--accent-lilac);
+      border-radius: 0; /* STRICTLY SQUARE */
+      background: var(--medium-purple);
+      color: #FFFFFF;
+      padding: 8px 14px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+    }
+
+    .btn-square:hover {
+      background: var(--dark-lilac);
+      color: var(--primary-purple);
+    }
+
+    /* TOP HORIZONTAL NAV TABS */
+    nav {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.15);
+      margin-top: 10px;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      overflow-x: auto;
+    }
+
+    nav li {
+      margin: 0;
+    }
+
+    nav a {
+      display: block;
+      padding: 14px 22px;
+      color: #E1BEE7;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-radius: 0; /* SQUARE TABS */
+      border-bottom: 3px solid transparent;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    nav a:hover {
+      background-color: rgba(255, 255, 255, 0.08);
+      color: #FFFFFF;
+    }
+
+    nav a.active {
+      color: #FFFFFF;
+      background-color: var(--medium-purple);
+      border-bottom: 3px solid var(--dark-lilac);
+    }
+
+    /* MAIN CONTAINER */
+    .container {
+      max-width: 1100px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+
+    /* INTRO SECTION */
+    .escuta-intro {
+      background-color: var(--card-bg);
+      border-left: 6px solid var(--medium-purple);
+      border-radius: 0; /* SQUARE CARD */
+      padding: 25px;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      border-top: 1px solid var(--border-color);
+      border-right: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .escuta-intro h2 {
+      color: var(--medium-purple);
+      font-size: 1.6rem;
+      margin-bottom: 10px;
+    }
+
+    body.dark-theme .escuta-intro h2 {
+      color: var(--dark-lilac);
+    }
+
+    .escuta-intro p {
+      font-size: 1.05rem;
+    }
+
+    /* GRID LAYOUT */
+    .grid-escuta {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+
+    @media (min-width: 768px) {
+      .grid-escuta {
+        grid-template-columns: 3fr 2fr;
+      }
+    }
+
+    /* FORM SECTION */
+    .form-section {
+      background-color: var(--card-bg);
+      padding: 28px;
+      border-radius: 0; /* SQUARE */
+      border: 1px solid var(--border-color);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: var(--text-color);
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px 15px;
+      border: 2px solid var(--border-color);
+      border-radius: 0; /* SQUARE INPUTS */
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-size: 1rem;
+      transition: border-color 0.2s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--medium-purple);
+    }
+
+    .btn-primary {
+      background-color: var(--medium-purple);
+      color: #FFFFFF;
+      border: none;
+      border-radius: 0; /* SQUARE BUTTON */
+      padding: 14px 28px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      transition: background-color 0.2s ease, transform 0.1s ease;
+      width: 100%;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--light-purple);
+    }
+
+    .btn-primary:active {
+      transform: translateY(1px);
+    }
+
+    /* FEEDBACK BOX */
+    .feedback-box {
+      margin-top: 20px;
+      padding: 18px;
+      background-color: var(--soft-lilac);
+      border-left: 5px solid var(--medium-purple);
+      border-radius: 0;
+      color: var(--text-color);
+      display: none;
+    }
+
+    /* SIDEBAR / ORIENTAÇÕES */
+    .orientacoes {
+      background-color: var(--card-bg);
+      padding: 28px;
+      border-radius: 0; /* SQUARE */
+      border: 1px solid var(--border-color);
+      border-top: 5px solid var(--dark-lilac);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      height: fit-content;
+    }
+
+    .orientacoes h3 {
+      color: var(--medium-purple);
+      margin-bottom: 15px;
+      font-size: 1.3rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    body.dark-theme .orientacoes h3 {
+      color: var(--dark-lilac);
+    }
+
+    .orientacoes ul {
+      list-style: none;
+      margin-top: 15px;
+    }
+
+    .orientacoes li {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 0.95rem;
+    }
+
+    .orientacoes li:last-child {
+      border-bottom: none;
+    }
+
+    .orientacoes li i {
+      color: var(--medium-purple);
+      margin-top: 3px;
+      font-size: 1.1rem;
+    }
+
+    body.dark-theme .orientacoes li i {
+      color: var(--dark-lilac);
+    }
+
+    /* FOOTER */
+    footer {
+      background-color: var(--primary-purple);
+      color: #E1BEE7;
+      text-align: center;
+      padding: 20px;
+      margin-top: 50px;
+      position: relative;
+    }
+
+    #back-to-top {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background-color: var(--medium-purple);
+      color: #FFFFFF;
+      border: 2px solid var(--accent-lilac);
+      border-radius: 0; /* SQUARE BUTTON */
+      width: 45px;
+      height: 45px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: none;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      transition: background-color 0.2s;
+      z-index: 99;
+    }
+
+    #back-to-top:hover {
+      background-color: var(--dark-lilac);
+      color: var(--primary-purple);
+    }
+  </style>
 </head>
 <body>
   <header>
     <div class="header-container">
-      <h1><i class="fas fa-hand-holding-heart"></i> Conexão & Respeito</h1>
-      <nav>
-        <ul>
-          <li><a href="index.html">Início</a></li>
-          <li><a href="escuta.html" class="active">Portal de Escuta</a></li>
-          <li><a href="quiz.html">Quiz Interativo</a></li>
-          <li><a href="referencias.html">Referências</a></li>
-        </ul>
-      </nav>
+      <div class="header-brand">
+        <h1><i class="fas fa-hand-holding-heart"></i> Conexão & Respeito</h1>
+      </div>
+      
       <div class="accessibility-controls">
-        <button id="theme-toggle"><i class="fas fa-moon"></i></button>
-        <button id="increase-font">A+</button>
-        <button id="decrease-font">A-</button>
+        <button id="theme-toggle" class="btn-square" aria-label="Alternar tema" title="Alternar tema claro/escuro">
+          <i class="fas fa-moon"></i>
+        </button>
+        <button id="increase-font" class="btn-square" aria-label="Aumentar fonte" title="Aumentar tamanho do texto">A+</button>
+        <button id="decrease-font" class="btn-square" aria-label="Diminuir fonte" title="Diminuir tamanho do texto">A-</button>
       </div>
     </div>
+
+    <!-- ABA DE NAVEGAÇÃO HORIZONTAL NA PARTE SUPERIOR -->
+    <nav>
+      <ul>
+        <li><a href="index.html">Início</a></li>
+        <li><a href="escuta.html" class="active">Portal de Escuta</a></li>
+        <li><a href="quiz.html">Quiz Interativo</a></li>
+        <li><a href="referencias.html">Referências</a></li>
+      </ul>
+    </nav>
   </header>
 
   <main class="container">
@@ -47,28 +411,97 @@
           <button type="submit" class="btn-primary">Enviar Desabafo</button>
         </form>
 
-        <div id="feedback-mensagem" class="feedback-box hidden"></div>
+        <div id="feedback-mensagem" class="feedback-box"></div>
       </section>
 
       <aside class="orientacoes">
         <h3><i class="fas fa-life-ring"></i> Precisa de ajuda urgente?</h3>
         <p>Lembre-se de que você não precisa carregar tudo sozinho. Sempre procure orientação de pessoas preparadas para ajudar:</p>
         <ul>
-          <li><i class="fas fa-chalkboard-teacher"></i> Professores e pedagogos de sua escola</li>
-          <li><i class="fas fa-school"></i> Direção ou coordenação escolar</li>
-          <li><i class="fas fa-home"></i> Pais, responsáveis ou familiares próximos</li>
-          <li><i class="fas fa-phone-alt"></i> <strong>CVV (Centro de Valorização da Vida):</strong> Ligue 188 (Gratuito e confidencial)</li>
-          <li><i class="fas fa-shield-alt"></i> <strong>Disque 100:</strong> Violações de Direitos Humanos</li>
+          <li><i class="fas fa-chalkboard-teacher"></i> <span>Professores e pedagogos de sua escola</span></li>
+          <li><i class="fas fa-school"></i> <span>Direção ou coordenação escolar</span></li>
+          <li><i class="fas fa-home"></i> <span>Pais, responsáveis ou familiares próximos</span></li>
+          <li><i class="fas fa-phone-alt"></i> <span><strong>CVV (Centro de Valorização da Vida):</strong> Ligue 188 (Gratuito e confidencial)</span></li>
+          <li><i class="fas fa-shield-alt"></i> <span><strong>Disque 100:</strong> Violações de Direitos Humanos</span></li>
         </ul>
       </aside>
     </div>
   </main>
 
   <footer>
-    <p>&copy; 2026 Portal de Apoio ao Estudante.</p>
+    <p>&copy; 2026 Portal de Apoio ao Estudante - Conexão & Respeito.</p>
     <button id="back-to-top" title="Voltar ao Topo"><i class="fas fa-arrow-up"></i></button>
   </footer>
 
-  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Simulação do Formulário
+      const form = document.getElementById('desabafo-form');
+      const feedback = document.getElementById('feedback-mensagem');
+
+      if (form && feedback) {
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const nome = document.getElementById('nome').value.trim() || 'Estudante';
+          form.reset();
+          feedback.style.display = 'block';
+          feedback.innerHTML = `
+            <p style="font-weight: bold; margin-bottom: 5px;">Obrigado pelo seu relato, ${nome}!</p>
+            <p>Sua mensagem foi recebida pela simulação. Lembre-se de que falar sobre seus sentimentos é um passo importante. Se estiver passando por um momento difícil, considere conversar com alguém de sua confiança.</p>
+          `;
+        });
+      }
+
+      // 2. Alternador de Tema (Claro / Escuro)
+      const themeToggle = document.getElementById('theme-toggle');
+      if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+          document.body.classList.toggle('dark-theme');
+          const icon = themeToggle.querySelector('i');
+          if (icon) {
+            icon.classList.toggle('fa-moon');
+            icon.classList.toggle('fa-sun');
+          }
+        });
+      }
+
+      // 3. Controle de Tamanho de Fonte
+      const btnIncrease = document.getElementById('increase-font');
+      const btnDecrease = document.getElementById('decrease-font');
+      let currentFontSize = 100;
+
+      if (btnIncrease && btnDecrease) {
+        btnIncrease.addEventListener('click', () => {
+          if (currentFontSize < 130) {
+            currentFontSize += 10;
+            document.body.style.fontSize = `${currentFontSize}%`;
+          }
+        });
+
+        btnDecrease.addEventListener('click', () => {
+          if (currentFontSize > 80) {
+            currentFontSize -= 10;
+            document.body.style.fontSize = `${currentFontSize}%`;
+          }
+        });
+      }
+
+      // 4. Botão Voltar ao Topo
+      const backToTopBtn = document.getElementById('back-to-top');
+      if (backToTopBtn) {
+        window.addEventListener('scroll', () => {
+          if (window.scrollY > 300) {
+            backToTopBtn.style.display = 'block';
+          } else {
+            backToTopBtn.style.display = 'none';
+          }
+        });
+
+        backToTopBtn.addEventListener('click', () => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      }
+    });
+  </script>
 </body>
 </html>
